@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>Shanmuga - DT Assignment</title>
+    <meta charset="utf-8" />
+
+    <!-- Style sheet -->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/Style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Javascript frameworks ( Order is important - DO not change as Bootstrap & ABgular internally uses JQuery) -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Bootstrap is used for Responsive Design layouts-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Angular JS used for MVC at the Front End Level -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+    <!-- This project specific Javascript files -->
+    <script src="js/controllers/NumberController.js"></script>
+    <script src="js/service/NumberService.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="NumberController">
+        <div class="container">
+            <h2>Input: </h2>
+            <form>
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input class="form-control" type="text" ng-model="Name" placeholder="{{NamePlaceholdervalue}}" required>
+                </div>
+                <div class="form-group">
+                    <label>Amount:</label>
+                    <input class="form-control" type="text" ng-model="Amount" placeholder="{{AmountPlaceholdervalue}}" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="ProcessInput" ng-click="ProcessInput()">Process</button>
+            </form>
+            <h2>Output: </h2>
+            <form>
+                <div class="form-group">
+                    <textarea class="form-control" ng-model="OutputPlaceholder" id="Output" rows="5" readonly></textarea>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>
