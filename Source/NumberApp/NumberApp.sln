@@ -24,6 +24,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NumberFE", "NumberFE\", "{2
 		SlnRelativePath = "NumberFE\"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{A566D23E-1ACD-47B6-BFB1-D96C3434E67A} = {A566D23E-1ACD-47B6-BFB1-D96C3434E67A}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberService", "NumberService\NumberService.csproj", "{A566D23E-1ACD-47B6-BFB1-D96C3434E67A}"
 EndProject

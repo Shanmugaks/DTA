@@ -50,11 +50,11 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
 
                 // On Error
                 var Message = null;
-                if (error.data == null) {
+                if (Result.data == null) {
                     Message = "ERROR: Web service server not reachable."
                 }
                 else {
-                    Message = "ERROR: " + error.data.Message + "\nHttp Status code:" + error.status + "\nHttp Status message:" + error.statusText;
+                    Message = "ERROR: " + Result.data.Message + "\nHttp Status code:" + Result.status + "\nHttp Status message:" + Result.statusText;
                 }
                 DisplayError(Message);
             }
