@@ -21,74 +21,82 @@ namespace NumberService.BusinessLogic
         string InputNumberText;
         string IntegerPartofInputNumberText;
         string DecimalPartofInputNumberText;
-        string sign;     
+        string sign;
         bool IsNumberSignAvailable = false;
         bool IsDecimalNumber = false;
-        int DecimalNumber;        
+        int DecimalNumber;
         public override void ParseInput()
         {
             sign = null;
+            DecimalNumber = 0;
+
             if (IsNumberSignAvailable == true)
             {
                 if (InputNumber[0] == '-')
                 {
                     sign = "MINUS";
                 }
-               
+
                 InputNumber = InputNumber.Substring(1, InputNumber.Length - 1);
             }
             string[] subStrings = InputNumber.Split('.');
             int SubStringCount = subStrings.Count();
-            if (SubStringCount > 3)
+
+            if (SubStringCount == 0)
             {
-                // Invalid Inputs
-                throw new InvalidProgramException();
+                IntegerPartofInputNumber = null;
+                DecimalPartofInputNumber = null;
             }
-            if (SubStringCount == 2)
+            else if (SubStringCount == 1)
+            {
+                if (subStrings[0] == ".")
+                {
+                    IntegerPartofInputNumber = null;
+                    DecimalPartofInputNumber = subStrings[0];
+                }
+                else
+                {
+                    IntegerPartofInputNumber = subStrings[0];
+                    DecimalPartofInputNumber = null;
+                }
+            }
+            else if (SubStringCount == 2)
             {
                 // Input have both Integer & Decimal part
                 IntegerPartofInputNumber = subStrings[0];
                 DecimalPartofInputNumber = subStrings[1];
 
-                // Restrict to only 3 decimal place
-                if(DecimalPartofInputNumber.Length >=3)
+                int nDecimalPartLength = DecimalPartofInputNumber.Length;
+                if (nDecimalPartLength == 1)
                 {
-                    DecimalPartofInputNumber = DecimalPartofInputNumber.Substring(0, 3);
+                    DecimalNumber = (int)Char.GetNumericValue(DecimalPartofInputNumber[0]);
                 }
-
-                // convert to Integer
-                int TempNumber = 0;
-                if (Int32.TryParse(DecimalPartofInputNumber, out TempNumber) == false)
+                else if (nDecimalPartLength == 2)
                 {
-                    throw new InvalidProgramException();
+                    int FirstDigit = (int)Char.GetNumericValue(DecimalPartofInputNumber[0]);
+                    int SecondDigit = (int)Char.GetNumericValue(DecimalPartofInputNumber[1]);
+                    DecimalNumber = (FirstDigit * 10) + SecondDigit;
                 }
-
-                // For 3 digits decimal
-                if(TempNumber >=100)
+                else if (nDecimalPartLength >= 3)
                 {
-                    int ThirdDigit = TempNumber % 10;
-                    if(ThirdDigit <= 4)
-                    {
-                        TempNumber = TempNumber / 10;
-                    }
-                    else
-                    {
-                        TempNumber = (TempNumber / 10) + 1;
-                    }
-                    if (TempNumber >= 100)
-                    {
-                        TempNumber = 99;
-                    }
+                    int FirstDigit = (int)Char.GetNumericValue(DecimalPartofInputNumber[0]);
+                    int SecondDigit = (int)Char.GetNumericValue(DecimalPartofInputNumber[1]);
+                    int ThirdDigit = (int)Char.GetNumericValue(DecimalPartofInputNumber[2]);
+                    DecimalNumber = (FirstDigit * 10) + SecondDigit;
+                    if (ThirdDigit >4)
+                        DecimalNumber = DecimalNumber + 1;
                 }
-                DecimalNumber = TempNumber;
+                else
+                {
+                    DecimalPartofInputNumber = null;
+                }
             }
             else
             {
-                // Input have only Integer part
-                IntegerPartofInputNumber = subStrings[0];
+                IntegerPartofInputNumber = null;
                 DecimalPartofInputNumber = null;
+                throw new InvalidProgramException();
             }
-
         }
         public override void SegregateIntoUnits()
         {
