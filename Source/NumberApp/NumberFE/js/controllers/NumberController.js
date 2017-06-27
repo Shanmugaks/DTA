@@ -15,6 +15,8 @@ NumberController implementation injected with following
 NumberApp.controller("NumberController", function FunctionItem($scope, $window, sNumber) {
 
     // Placeholders angularJS variable intitalized
+    $scope.Name = "";
+    $scope.Result = "";
     $scope.NamePlaceholdervalue = "Please enter name";
     $scope.AmountPlaceholdervalue = "Please enter valid amount";
 
@@ -24,14 +26,14 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
 
         // Validation check - NULL values of Name
         if ($scope.Name == null) {
-            var Message = "Input Error(Name)";
+            var Message = "\nInput Error(Name)";
             DisplayError(Message);
             return;
         }
 
         // Validation check - NULL values of Amount
         if ($scope.Amount == null) {
-            var Message = "Input Error(Amount)";
+            var Message = "\nInput Error(Amount)";
             DisplayError(Message);
             return;
         }
@@ -43,7 +45,7 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
         response.then(function (Result) {
             if (Result.data) {
                 // On Success
-                var Message = $scope.Name + "\n" + "\"" + Result.data  + "\"";
+                var Message = "\n" + "\"" + Result.data  + "\"";
                 DisplayValue(Message);
             }
             else {
@@ -51,10 +53,10 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
                 // On Error
                 var Message = null;
                 if (Result.data == null) {
-                    Message = "ERROR: Web service server not reachable."
+                    Message = "\nERROR: Web service server not reachable."
                 }
                 else {
-                    Message = "ERROR: " + Result.data.Message + "\nHttp Status code:" + Result.status + "\nHttp Status message:" + Result.statusText;
+                    Message = "\nERROR: " + Result.data.Message + "\nHttp Status code:" + Result.status + "\nHttp Status message:" + Result.statusText;
                 }
                 DisplayError(Message);
             }
@@ -64,10 +66,10 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
             // On Error
             var Message = null;
             if (error.data == null) {
-                Message = "ERROR: Web service server not reachable."
+                Message = "\nERROR: Web service server not reachable."
             }
             else {
-                Message = "ERROR: " + error.data.Message + "\nHttp Status code:" + error.status + "\nHttp Status message:" + error.statusText;
+                Message = "\nERROR: " + error.data.Message + "\nHttp Status code:" + error.status + "\nHttp Status message:" + error.statusText;
             }
             DisplayError(Message);
         });
@@ -79,7 +81,7 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
     This method used to display message with green color
     */
     function DisplayValue(message) {
-        $scope.OutputPlaceholder = message ;
+        $scope.Result = message;
         document.getElementById('Output').style.backgroundColor = 'lightgreen';
     }
 
@@ -88,7 +90,8 @@ NumberApp.controller("NumberController", function FunctionItem($scope, $window, 
     This method used to display message with RED color
     */
     function DisplayError(message) {
-        $scope.OutputPlaceholder = message;
+        $scope.Name = "";
+        $scope.Result = message;
         document.getElementById('Output').style.backgroundColor = 'pink';
     }
 
